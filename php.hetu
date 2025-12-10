@@ -1,0 +1,32 @@
+<?php
+
+function tarkistahetu($hetu) {
+    $hetu = str_replace(" ", "", $hetu);
+    if (strlen($hetu) != 11) {
+        return false;
+    }
+    $saika = substr($hetu,0,6);
+    $erotin = substr($hetu,6,1);
+    $paiva = substr($saika,0,2);
+    $kuukausi = substr($saika,2,2);
+    $vuosi = substr($saika,4,2);
+$vuosi = "20". $vuosi;
+$paivamaara = checkdate($kuukausi,$paiva,$vuosi);
+if (!$paivamaara) {
+    return false;
+
+}
+
+if (!in_array($erotin, [ '+','-','A'])) {
+    return false;
+}
+
+return true;
+}
+
+var_dump(tarkistahetu("131052-1234"));
+var_dump(tarkistahetu("131052+1234"));
+var_dump(tarkistahetu("131052A1234"));
+var_dump(tarkistahetu("311299123456"));
+
+?>
